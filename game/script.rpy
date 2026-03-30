@@ -20,10 +20,9 @@ default temp = ""
 default temp2 ="" 
 screen clickable_sprite_screen():
     imagebutton:
-        idle "neutral.jpg"    # Normal image
-        hover "close-neutral.png"  # Image when mouse is over it
+        idle "neutral.png"    # Normal image
+        # hover "close-neutral.png"  # Image when mouse is over it
         xalign 0.5 yalign 0.5      # Position on screen
-        
         # Action to perform when clicked
         action Jump("monster") 
 
@@ -120,8 +119,10 @@ label monster_meeting:
     "Going to sleep isn't a option though, because there's something watching you."
     y "What the fuck."
     y "What is that?"
+    "(Click to proceed)"
     call screen clickable_sprite_screen
 label monster:
+    scene bg
     show close-shock
     c0 "Hi."
     "That's like... definitely not human, right?"
@@ -134,7 +135,7 @@ label monster:
         "Run.":
             $temp = "limbs"
     "Your body won't move."
-    if temp ="limbs":
+    if temp =="limbs":
         "You try to move your [temp], but they don't as much as twitch."
     menu:
         "Panic.":
@@ -145,7 +146,7 @@ label monster:
             "Fuck it. Your mind's going blank."
     y "What the fuck. What the fuck?"
     show close-neutral
-    if check_char():
+    if check_char(li):
         c0 "Hi?"
     else:
         c0 "Hey."
@@ -155,7 +156,7 @@ label monster:
             y "Who are you?"
         "What are you?":
             y "What are you?"
-    if check_char():
+    if check_char(li):
         c0 "Hmm, guess?"
     else:
         c0 "You know who I am."
@@ -178,7 +179,7 @@ label monster:
             $ temp =="love"
         "Look like her.":
             $ temp == "like"
-    if temp ="love":
+    if temp =="love":
         show close-shy
         "Beauty?"
         "You're lying."
@@ -187,14 +188,14 @@ label monster:
     "Why's she nitpicking? While she's literally a scary monster hovering above your bed, she's nitpicking you for not complimenting her enough."
     "This is just like her. It's always a weird power play gay chciken game with her. And..."
     menu:
-        "You're gay.":
+        "I'm gay.":
             "It's not your fault every guy in your school is ugly."
             "You never liked her boyfriend anyway. That's your justification."
             y "I'm telling you now."
             c2 "!!!"
             show close-neutral
             y "It's too late, anyway."
-        "You're not gay.":
+        "I'm not gay.":
             y "Why does it even matter?"
             "You're not... one of {i}those{/i} poeple."
     y "You're disrupting my sleep."
@@ -217,7 +218,7 @@ label monster:
     "She doesn't even care about you."
     "The only version you're getting of her is the one in your head."
     c2 "Then say it to my face."
-    if temp = "I love you.":
+    if temp == "I love you.":
         "[temp2]"
     y "I [temp]."
     c2 "No."
@@ -229,8 +230,8 @@ label monster:
         "Okay.":
             pass
     y "What?"
-    scene bg 
-    with dissolve
+    scene black
+    scene bg with dissolve
     "When you look up again, you're alone. And you feel like you can breath again."
     "Your pajamas are damp and sticky under you. It feels different than it did just moments prior. Rougher, and more real."
     "You didn't realize how much you missed the feeling of being able to move."
@@ -252,7 +253,7 @@ label monster:
             "You'll call her."
             y "It's her fault. All of this."
             "You'll let her know every detail of just how much she's hurt you."
-            scene bg black with dissolve
+            scene black with dissolve
             play sound "game/audio/freesound_community-hello-91045.mp3"
             c2 "Hello?"
             if temp == "I hate you.":
